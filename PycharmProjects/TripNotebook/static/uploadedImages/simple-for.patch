@@ -1,0 +1,539 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  
+
+  
+
+
+  <head>
+    <title>
+      simple-for.patch on Ticket #5172 – Attachment
+     – Django
+    </title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!--[if IE]><script type="text/javascript">
+      if (/^#__msie303:/.test(window.location.hash))
+        window.location.replace(window.location.hash.replace(/^#__msie303:/, '#'));
+    </script><![endif]-->
+        <link rel="search" href="/search" />
+        <link rel="help" href="/wiki/TracGuide" />
+        <link rel="alternate" href="/raw-attachment/ticket/5172/simple-for.patch" type="text/x-diff; charset=utf-8" title="Original Format" />
+        <link rel="up" href="/ticket/5172" title="Ticket #5172" />
+        <link rel="start" href="/wiki" />
+        <link rel="stylesheet" href="/chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="/chrome/common/css/diff.css" type="text/css" /><link rel="stylesheet" href="/chrome/common/css/code.css" type="text/css" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <style id="trac-noscript" type="text/css">.trac-noscript { display: none !important }</style>
+      <link type="application/opensearchdescription+xml" rel="search" href="/search/opensearch" title="Search Django" />
+      <script type="text/javascript" charset="utf-8" src="/chrome/common/js/jquery.js"></script>
+      <script type="text/javascript" charset="utf-8" src="/chrome/common/js/babel.js"></script>
+      <script type="text/javascript" charset="utf-8" src="/chrome/common/js/trac.js"></script>
+      <script type="text/javascript" charset="utf-8" src="/chrome/common/js/search.js"></script>
+      <script type="text/javascript" charset="utf-8" src="/chrome/common/js/diff.js"></script>
+    <script type="text/javascript">
+      jQuery("#trac-noscript").remove();
+      jQuery(document).ready(function($) {
+        $(".trac-autofocus").focus();
+        $(".trac-target-new").attr("target", "_blank");
+        setTimeout(function() { $(".trac-scroll").scrollToTop() }, 1);
+        $(".trac-disable-on-submit").disableOnSubmit();
+      });
+    </script>
+      <script type="text/javascript" src="/chrome/common/js/folding.js"></script>
+      <script type="text/javascript">
+        jQuery(document).ready(function($) {
+          $('#preview table.code').enableCollapsibleColumns($('#preview table.code thead th.content'));
+        });
+      </script>
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="${href.chrome('site/css/output-ie.css')}" />
+     <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="/chrome/site/css/output.css" />
+    <!--<![endif]-->
+    <link rel="stylesheet" href="/chrome/site/css/trachacks.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.6/webfont.js"></script>
+    <script>
+    WebFont.load({
+        google: {
+            families: ['Inconsolata:400,700:latin', 'Roboto:400italic,700italic,300,700,400:latin']
+        }
+    });
+    </script>
+    <script src="/chrome/site/js/lib/modernizr.js"></script>
+  </head>
+  <body id="generic">
+    <div role="banner" id="top">
+      <div class="container">
+        <a class="logo" href="https://www.djangoproject.com/">Django</a>
+        <p class="meta">The web framework for perfectionists with deadlines.</p>
+        <nav role="navigation">
+          <ul>
+            <li><a href="https://www.djangoproject.com/">Overview</a></li>
+            <li><a href="https://www.djangoproject.com/download/">Download</a></li>
+            <li><a href="https://docs.djangoproject.com/">Documentation</a></li>
+            <li><a href="https://www.djangoproject.com/weblog/">News</a></li>
+            <li><a href="https://www.djangoproject.com/community/">Community</a></li>
+            <li class="active"><a href="/">Code</a></li>
+            <li><a href="https://www.djangoproject.com/foundation/">About</a></li>
+            <li><a href="https://www.djangoproject.com/fundraising/">♥ Donate</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="copy-banner">
+      <div class="container">
+        <h1>Code</h1>
+      </div>
+    </div>
+      <div class="container full-width">
+        <div role="main">
+          <div id="metanav" class="nav">
+    <ul>
+      <li class="first"><a href="/github/login">GitHub Login</a></li><li><a href="/login">DjangoProject Login</a></li><li><a href="/prefs">Preferences</a></li><li class="last"><a href="/rpc">API</a></li>
+    </ul>
+  </div>
+          <div id="mainnav" class="nav">
+    <ul>
+      <li class="first"><a href="/query">View Tickets</a></li><li><a href="/wiki/Reports">Reports</a></li><li><a href="/timeline">Timeline</a></li><li><a href="/wiki">Wiki</a></li><li class="last"><a href="/search">Search</a></li>
+    </ul>
+  </div>
+          <div id="main">
+      <div id="ctxtnav" class="nav">
+        <h2>Context Navigation</h2>
+        <ul>
+          <li class="last first"><a href="/ticket/5172">Back to Ticket #5172</a></li>
+        </ul>
+        <hr />
+      </div>
+    <div id="content" class="attachment">
+        <h1><a href="/ticket/5172">Ticket #5172</a>: simple-for.patch</h1>
+        <table id="info" summary="Description">
+          <tr>
+            <th scope="col">File simple-for.patch, <span title="6136 bytes">6.0 KB</span> (added by SmileyChris, <a class="timeline" href="/timeline?from=2007-08-15T19%3A24%3A48-05%3A00&amp;precision=second" title="See timeline at 08/15/07 19:24:48">9 years ago</a>)</th>
+          </tr>
+          <tr>
+            <td class="message searchable">
+              
+            </td>
+          </tr>
+        </table>
+        <div id="preview" class="searchable">
+          
+  <div class="diff">
+  <ul class="entries">
+      <li class="entry">
+        <h2>
+          <a>django/template/defaulttags.py</a>
+        </h2>
+        <table class="trac-diff inline" summary="Differences" cellspacing="0">
+              <colgroup><col class="lineno" /><col class="lineno" /><col class="content" /></colgroup>
+              <thead>
+                <tr>
+                  <th title="File django/template/defaulttags.py (revision 5888)">
+                  </th>
+                  <th title="File django/template/defaulttags.py (working copy)">
+                  </th>
+                  <td><em></em> </td>
+                </tr>
+              </thead>
+            <tbody class="unmod">
+                  <tr>
+                          <th>79</th><th>79</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; reversed = ' reversed'</span></td>
+                  </tr><tr>
+                          <th>80</th><th>80</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; else:</span></td>
+                  </tr><tr>
+                          <th>81</th><th>81</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; reversed = ''</span></td>
+                  </tr>
+            </tbody><tbody class="mod">
+                      <tr class="first">
+                        <th>82</th><th> </th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; return "&lt;For Node: for %s in %s, tail_len: %d%s&gt;" % \</span></td>
+                      </tr><tr>
+                        <th>83</th><th> </th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (', '.join( self.loopvars ), self.sequence, len(self.nodelist_loop), reversed)</span></td>
+                      </tr>
+                      <tr>
+                        <th> </th><th>82</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; loopvars = loopvars and '%s in ' % ', '.join(self.loopvars) or '' </span></td>
+                      </tr><tr>
+                        <th> </th><th>83</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; return "&lt;For Node: for %s%s, length of: %d%s&gt;" % (loopvars,</span></td>
+                      </tr><tr class="last">
+                        <th> </th><th>84</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;self.sequence, len(self.nodelist_loop), reversed)</span></td>
+                      </tr>
+            </tbody><tbody class="unmod">
+                  <tr>
+                          <th>84</th><th>85</th><td class="l"><span></span></td>
+                  </tr><tr>
+                          <th>85</th><th>86</th><td class="l"><span>&nbsp; &nbsp; def __iter__(self):</span></td>
+                  </tr><tr>
+                          <th>86</th><th>87</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; for node in self.nodelist_loop:</span></td>
+                  </tr>
+            </tbody>
+              <tbody class="skipped">
+                <tr>
+                  <th><a href="#L106">…</a></th>
+                  <th><a href="#L107">…</a></th>
+                  <td><em></em> </td>
+                </tr>
+              </tbody>
+            <tbody class="unmod">
+                  <tr>
+                          <th>106</th><th>107</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; values = []</span></td>
+                  </tr><tr>
+                          <th>107</th><th>108</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; if values is None:</span></td>
+                  </tr><tr>
+                          <th>108</th><th>109</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; values = []</span></td>
+                  </tr>
+            </tbody><tbody class="add">
+                  <tr class="first">
+                          <th> </th><th>110</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; if not self.loopvars:</ins></td>
+                  </tr><tr>
+                          <th> </th><th>111</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # It's a simple integer-based loop</ins></td>
+                  </tr><tr>
+                          <th> </th><th>112</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; try:</ins></td>
+                  </tr><tr>
+                          <th> </th><th>113</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; values = range(int(values))</ins></td>
+                  </tr><tr>
+                          <th> </th><th>114</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; except (ValueError, TypeError):</ins></td>
+                  </tr><tr class="last">
+                          <th> </th><th>115</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; values = []</ins></td>
+                  </tr>
+            </tbody><tbody class="unmod">
+                  <tr>
+                          <th>109</th><th>116</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; if not hasattr(values, '__len__'):</span></td>
+                  </tr><tr>
+                          <th>110</th><th>117</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; values = list(values)</span></td>
+                  </tr><tr>
+                          <th>111</th><th>118</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; len_values = len(values)</span></td>
+                  </tr>
+            </tbody>
+              <tbody class="skipped">
+                <tr>
+                  <th><a href="#L128">…</a></th>
+                  <th><a href="#L135">…</a></th>
+                  <td><em></em> </td>
+                </tr>
+              </tbody>
+            <tbody class="unmod">
+                  <tr>
+                          <th>128</th><th>135</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if unpack:</span></td>
+                  </tr><tr>
+                          <th>129</th><th>136</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # If there are multiple loop variables, unpack the item into them.</span></td>
+                  </tr><tr>
+                          <th>130</th><th>137</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; context.update(dict(zip(self.loopvars, item)))</span></td>
+                  </tr>
+            </tbody><tbody class="mod">
+                      <tr class="first">
+                        <th>131</th><th> </th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; el<del>se</del>:</span></td>
+                      </tr>
+                      <tr class="last">
+                        <th> </th><th>138</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; el<ins>if self.loopvars</ins>:</span></td>
+                      </tr>
+            </tbody><tbody class="unmod">
+                  <tr>
+                          <th>132</th><th>139</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; context[self.loopvars[0]] = item</span></td>
+                  </tr><tr>
+                          <th>133</th><th>140</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; for node in self.nodelist_loop:</span></td>
+                  </tr><tr>
+                          <th>134</th><th>141</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nodelist.append(node.render(context))</span></td>
+                  </tr>
+            </tbody>
+              <tbody class="skipped">
+                <tr>
+                  <th><a href="#L567">…</a></th>
+                  <th><a href="#L574">…</a></th>
+                  <td><em></em> </td>
+                </tr>
+              </tbody>
+            <tbody class="unmod">
+                  <tr>
+                          <th>567</th><th>574</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; current one</span></td>
+                  </tr><tr>
+                          <th>568</th><th>575</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; ==========================&nbsp; ================================================</span></td>
+                  </tr><tr>
+                          <th>569</th><th>576</th><td class="l"><span></span></td>
+                  </tr>
+            </tbody><tbody class="add">
+                  <tr class="first">
+                          <th> </th><th>577</th><td class="r"><ins>&nbsp; &nbsp; You can also set up a simple integer loop by passing in just an integer.</ins></td>
+                  </tr><tr>
+                          <th> </th><th>578</th><td class="r"><ins>&nbsp; &nbsp; Nothing will be added to the context except for the ``forloop`` variable.</ins></td>
+                  </tr><tr>
+                          <th> </th><th>579</th><td class="r"><ins></ins></td>
+                  </tr><tr>
+                          <th> </th><th>580</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; {% for 5 %}</ins></td>
+                  </tr><tr>
+                          <th> </th><th>581</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; loop: {{ forloop.counter }}</ins></td>
+                  </tr><tr>
+                          <th> </th><th>582</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; {% endfor %}</ins></td>
+                  </tr><tr>
+                          <th> </th><th>583</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; {% for my_integer %}</ins></td>
+                  </tr><tr>
+                          <th> </th><th>584</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; loop: {{ forloop.counter }}</ins></td>
+                  </tr><tr class="last">
+                          <th> </th><th>585</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; {% endfor %}</ins></td>
+                  </tr>
+            </tbody><tbody class="unmod">
+                  <tr>
+                          <th>570</th><th>586</th><td class="l"><span>&nbsp; &nbsp; """</span></td>
+                  </tr><tr>
+                          <th>571</th><th>587</th><td class="l"><span>&nbsp; &nbsp; bits = token.contents.split()</span></td>
+                  </tr>
+            </tbody><tbody class="mod">
+                      <tr class="first">
+                        <th>572</th><th> </th><td class="l"><span>&nbsp; &nbsp; if len(bits) &lt; 4:</span></td>
+                      </tr><tr>
+                        <th>573</th><th> </th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; raise TemplateSyntaxError, "'for' statements should have at least four words: %s" % token.contents</span></td>
+                      </tr>
+                      <tr>
+                        <th> </th><th>588</th><td class="r"><span>&nbsp; &nbsp; if len(bits) &lt; 4 and len(bits) != 2:</span></td>
+                      </tr><tr>
+                        <th> </th><th>589</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; raise TemplateSyntaxError, ("Invalid format for 'for' tag: %s" %</span></td>
+                      </tr><tr class="last">
+                        <th> </th><th>590</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; token.contents)</span></td>
+                      </tr>
+            </tbody><tbody class="unmod">
+                  <tr>
+                          <th>574</th><th>591</th><td class="l"><span></span></td>
+                  </tr>
+            </tbody><tbody class="mod">
+                      <tr class="first">
+                        <th>575</th><th> </th><td class="l"><span>&nbsp; &nbsp; reversed = bits[-1] == 'reversed'</span></td>
+                      </tr><tr>
+                        <th>576</th><th> </th><td class="l"><span>&nbsp; &nbsp; in_index = reversed and -3 or -2</span></td>
+                      </tr><tr>
+                        <th>577</th><th> </th><td class="l"><span>&nbsp; &nbsp; if bits[in_index] != 'in':</span></td>
+                      </tr><tr>
+                        <th>578</th><th> </th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; raise TemplateSyntaxError, "'for' statements should use the format 'for x in y': %s" % token.contents</span></td>
+                      </tr><tr>
+                        <th>579</th><th> </th><td class="l"><span></span></td>
+                      </tr><tr>
+                        <th>580</th><th> </th><td class="l"><span>&nbsp; &nbsp; loopvars = re.sub(r' *, *', ',', ' '.join(bits[1:in_index])).split(',')</span></td>
+                      </tr><tr>
+                        <th>581</th><th> </th><td class="l"><span>&nbsp; &nbsp; for var in loopvars:</span></td>
+                      </tr><tr>
+                        <th>582</th><th> </th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; if not var or ' ' in var:</span></td>
+                      </tr><tr>
+                        <th>583</th><th> </th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; raise TemplateSyntaxError, "'for' tag received an invalid argument: %s" % token.contents</span></td>
+                      </tr><tr>
+                        <th>584</th><th> </th><td class="l"><span></span></td>
+                      </tr><tr>
+                        <th>585</th><th> </th><td class="l"><span>&nbsp; &nbsp; sequence = parser.compile_filter(bits[in_index+1])</span></td>
+                      </tr>
+                      <tr>
+                        <th> </th><th>592</th><td class="r"><span>&nbsp; &nbsp; if len(bits) == 2:</span></td>
+                      </tr><tr>
+                        <th> </th><th>593</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; reversed = False</span></td>
+                      </tr><tr>
+                        <th> </th><th>594</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; loopvars = []</span></td>
+                      </tr><tr>
+                        <th> </th><th>595</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; sequence = parser.compile_filter(bits[1])</span></td>
+                      </tr><tr>
+                        <th> </th><th>596</th><td class="r"><span>&nbsp; &nbsp; else:</span></td>
+                      </tr><tr>
+                        <th> </th><th>597</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; reversed = bits[-1] == 'reversed'</span></td>
+                      </tr><tr>
+                        <th> </th><th>598</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; in_index = reversed and -3 or -2</span></td>
+                      </tr><tr>
+                        <th> </th><th>599</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; if bits[in_index] != 'in':</span></td>
+                      </tr><tr>
+                        <th> </th><th>600</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; raise TemplateSyntaxError, "'for' statements should use the format 'for x in y': %s" % token.contents</span></td>
+                      </tr><tr>
+                        <th> </th><th>601</th><td class="r"><span>&nbsp; &nbsp; </span></td>
+                      </tr><tr>
+                        <th> </th><th>602</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; loopvars = re.sub(r' *, *', ',', ' '.join(bits[1:in_index])).split(',')</span></td>
+                      </tr><tr>
+                        <th> </th><th>603</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; for var in loopvars:</span></td>
+                      </tr><tr>
+                        <th> </th><th>604</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if not var or ' ' in var:</span></td>
+                      </tr><tr>
+                        <th> </th><th>605</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; raise TemplateSyntaxError, "'for' tag received an invalid argument: %s" % token.contents</span></td>
+                      </tr><tr>
+                        <th> </th><th>606</th><td class="r"><span>&nbsp; &nbsp; </span></td>
+                      </tr><tr class="last">
+                        <th> </th><th>607</th><td class="r"><span>&nbsp; &nbsp; &nbsp; &nbsp; sequence = parser.compile_filter(bits[in_index+1])</span></td>
+                      </tr>
+            </tbody><tbody class="unmod">
+                  <tr>
+                          <th>586</th><th>608</th><td class="l"><span>&nbsp; &nbsp; nodelist_loop = parser.parse(('endfor',))</span></td>
+                  </tr><tr>
+                          <th>587</th><th>609</th><td class="l"><span>&nbsp; &nbsp; parser.delete_first_token()</span></td>
+                  </tr><tr>
+                          <th>588</th><th>610</th><td class="l"><span>&nbsp; &nbsp; return ForNode(loopvars, sequence, reversed, nodelist_loop)</span></td>
+                  </tr>
+            </tbody>
+        </table>
+      </li>
+      <li class="entry">
+        <h2>
+          <a>docs/templates.txt</a>
+        </h2>
+        <table class="trac-diff inline" summary="Differences" cellspacing="0">
+              <colgroup><col class="lineno" /><col class="lineno" /><col class="content" /></colgroup>
+              <thead>
+                <tr>
+                  <th title="File docs/templates.txt (revision 5888)">
+                  </th>
+                  <th title="File docs/templates.txt (working copy)">
+                  </th>
+                  <td><em></em> </td>
+                </tr>
+              </thead>
+            <tbody class="unmod">
+                  <tr>
+                          <th>492</th><th>492</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; current one</span></td>
+                  </tr><tr>
+                          <th>493</th><th>493</th><td class="l"><span>&nbsp; &nbsp; ==========================&nbsp; ================================================</span></td>
+                  </tr><tr>
+                          <th>494</th><th>494</th><td class="l"><span></span></td>
+                  </tr>
+            </tbody><tbody class="add">
+                  <tr class="first">
+                          <th> </th><th>495</th><td class="r"><ins>**New in Django development version**</ins></td>
+                  </tr><tr>
+                          <th> </th><th>496</th><td class="r"><ins>You can also set up a simple loop by passing just an integer variable (or</ins></td>
+                  </tr><tr>
+                          <th> </th><th>497</th><td class="r"><ins>constant)::</ins></td>
+                  </tr><tr>
+                          <th> </th><th>498</th><td class="r"><ins></ins></td>
+                  </tr><tr>
+                          <th> </th><th>499</th><td class="r"><ins>&nbsp; &nbsp; {% for var %}</ins></td>
+                  </tr><tr>
+                          <th> </th><th>500</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; loop: {{ forloop.counter }}</ins></td>
+                  </tr><tr>
+                          <th> </th><th>501</th><td class="r"><ins>&nbsp; &nbsp; {% endfor %}</ins></td>
+                  </tr><tr class="last">
+                          <th> </th><th>502</th><td class="r"><ins></ins></td>
+                  </tr>
+            </tbody><tbody class="unmod">
+                  <tr>
+                          <th>495</th><th>503</th><td class="l"><span>if</span></td>
+                  </tr><tr>
+                          <th>496</th><th>504</th><td class="l"><span>~~</span></td>
+                  </tr><tr>
+                          <th>497</th><th>505</th><td class="l"><span></span></td>
+                  </tr>
+            </tbody>
+        </table>
+      </li>
+      <li class="entry">
+        <h2>
+          <a>tests/regressiontests/templates/tests.py</a>
+        </h2>
+        <table class="trac-diff inline" summary="Differences" cellspacing="0">
+              <colgroup><col class="lineno" /><col class="lineno" /><col class="content" /></colgroup>
+              <thead>
+                <tr>
+                  <th title="File tests/regressiontests/templates/tests.py (revision 5888)">
+                  </th>
+                  <th title="File tests/regressiontests/templates/tests.py (working copy)">
+                  </th>
+                  <td><em></em> </td>
+                </tr>
+              </thead>
+            <tbody class="unmod">
+                  <tr>
+                          <th>356</th><th>356</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'for-tag-unpack11': ("{% for x,y,z in items %}{{ x }}:{{ y }},{{ z }}/{% endfor %}", {"items": (('one', 1), ('two', 2))}, ("one:1,/two:2,/", "one:1,INVALID/two:2,INVALID/")),</span></td>
+                  </tr><tr>
+                          <th>357</th><th>357</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'for-tag-unpack12': ("{% for x,y,z in items %}{{ x }}:{{ y }},{{ z }}/{% endfor %}", {"items": (('one', 1, 'carrot'), ('two', 2))}, ("one:1,carrot/two:2,/", "one:1,carrot/two:2,INVALID/")),</span></td>
+                  </tr><tr>
+                          <th>358</th><th>358</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'for-tag-unpack13': ("{% for x,y,z in items %}{{ x }}:{{ y }},{{ z }}/{% endfor %}", {"items": (('one', 1, 'carrot'), ('two', 2, 'cheese'))}, ("one:1,carrot/two:2,cheese/", "one:1,carrot/two:2,cheese/")),</span></td>
+                  </tr>
+            </tbody><tbody class="add">
+                  <tr class="first">
+                          <th> </th><th>359</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'for-tag-simple01': ("{% for 5 %}{{ forloop.counter }},{% endfor %}", {}, "1,2,3,4,5,"),</ins></td>
+                  </tr><tr>
+                          <th> </th><th>360</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'for-tag-simple02': ('{% for "5" %}{{ forloop.counter }},{% endfor %}', {}, "1,2,3,4,5,"),</ins></td>
+                  </tr><tr>
+                          <th> </th><th>361</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'for-tag-simple03': ('{% for "not-a-number" %}{{ forloop.counter }},{% endfor %}', {}, ""),</ins></td>
+                  </tr><tr>
+                          <th> </th><th>362</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'for-tag-simple04': ('{% for number %}{{ forloop.counter }},{% endfor %}', {'number': 5}, "1,2,3,4,5,"),</ins></td>
+                  </tr><tr>
+                          <th> </th><th>363</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'for-tag-simple05': ('{% for number %}{{ forloop.counter }},{% endfor %}', {'number': '5'}, "1,2,3,4,5,"),</ins></td>
+                  </tr><tr>
+                          <th> </th><th>364</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'for-tag-simple06': ('{% for number %}{{ forloop.counter }},{% endfor %}', {'number': 'not-a-number'}, ""),</ins></td>
+                  </tr><tr class="last">
+                          <th> </th><th>365</th><td class="r"><ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'for-tag-simple07': ('{% for number %}{{ forloop.counter }},{% endfor %}', {}, ""),</ins></td>
+                  </tr>
+            </tbody><tbody class="unmod">
+                  <tr>
+                          <th>359</th><th>366</th><td class="l"><span></span></td>
+                  </tr><tr>
+                          <th>360</th><th>367</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ### IF TAG ################################################################</span></td>
+                  </tr><tr>
+                          <th>361</th><th>368</th><td class="l"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'if-tag01': ("{% if foo %}yes{% else %}no{% endif %}", {"foo": True}, "yes"),</span></td>
+                  </tr>
+            </tbody>
+        </table>
+      </li>
+  </ul>
+</div>
+
+        </div>
+    </div>
+    <div id="altlinks">
+      <h3>Download in other formats:</h3>
+      <ul>
+        <li class="last first">
+          <a rel="nofollow" href="/raw-attachment/ticket/5172/simple-for.patch">Original Format</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+          <a href="#top" class="backtotop"><i class="icon icon-chevron-up"></i> Back to Top</a>
+        </div>
+      </div>
+    <div role="contentinfo">
+      <div class="subfooter">
+        <div class="container">
+          <h1 class="visuallyhidden">Django Links</h1>
+          <div class="col learn">
+            <h2>Learn More</h2>
+            <ul>
+              <li><a href="https://www.djangoproject.com/overview/">About Django</a></li>
+              <li><a href="https://www.djangoproject.com/start/">Getting Started with Django</a></li>
+              <li><a href="https://www.djangoproject.com/foundation/">Django Software Foundation</a></li>
+              <li><a href="https://www.djangoproject.com/conduct/">Code of Conduct</a></li>
+            </ul>
+          </div>
+          <div class="col involved">
+            <h2>Get Involved</h2>
+            <ul>
+              <li><a href="https://www.djangoproject.com/community/">Join a Group</a></li>
+              <li><a href="https://docs.djangoproject.com/en/dev/internals/contributing/">Contribute to Django</a></li>
+              <li><a href="https://docs.djangoproject.com/en/dev/internals/contributing/bugs-and-features/#reporting-security-issues">Submit a Bug</a></li>
+              <li><a href="https://docs.djangoproject.com/en/dev/internals/security/">Report a Security Issue</a></li>
+            </ul>
+          </div>
+          <div class="col follow">
+            <h2>Follow Us</h2>
+            <ul>
+              <li><a href="http://github.com/django">GitHub</a></li>
+              <li><a href="https://twitter.com/djangoproject">Twitter</a></li>
+              <li><a href="https://www.djangoproject.com/rss/weblog/">News RSS</a></li>
+              <li><a href="https://groups.google.com/forum/#!forum/django-users">Django Users Mailing List</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="container">
+          <div class="footer-logo">
+            <a class="logo" href="https://djangoproject.com/">Django</a>
+          </div>
+          <ul class="thanks">
+            <li><span>Hosting by</span> <a class="rackspace" href="http://rackspace.com">Rackspace</a></li>
+            <li class="design"><span>Design by</span> <a class="threespot" href="http://www.threespot.com">Threespot</a> <span class="ampersand">&amp;</span> <a class="andrevv" href="http://andrevv.com/"></a></li>
+          </ul>
+          <p class="copyright">© 2005-2016
+              <a href="https://djangoproject.com/foundation/"> Django Software
+              Foundation</a> unless otherwise noted. Django is a
+              <a href="https://djangoproject.com/trademarks/">registered
+              trademark</a> of the Django Software Foundation.
+          </p>
+        </div>
+      </div>
+    </div>
+  <script data-main="/chrome/site/js/main.js" src="/chrome/site/js/lib/require.js"></script>
+  </body>
+</html>

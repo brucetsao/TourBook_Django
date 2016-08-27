@@ -1,0 +1,25 @@
+
+<div class="table-title">
+    <h3 align="center">旅遊帳本</h3>
+  </div>
+  <table class="table-fill">
+  <thead>
+    <tr>
+      <th class="text-left">日期</th>
+      <th class="text-left">商品</th>
+      <th class="text-left">價格</th>
+    </tr>
+  </thead>
+    <tbody class="table-hover">
+
+    {% for i in "x"|ljust:"15" %}
+      <tr>
+        <td class="text-left" style="padding: 20px;"></td>
+        <td class="text-left" style="padding: 20px;"></td>
+        <td class="text-left" style="padding: 20px;"></td>
+      </tr>
+
+    {%  endfor  %}
+
+  </tbody>
+  </table>
